@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/jwulf/zeebe-variable-isolation-demo/issues"
   },
-  "homepage": "https://github.com/jwulf/zeebe-variable-isolation-demo#readme"
+  "homepage": "https://github.com/jwulf/zeebe-variable-isolation-demo#readme",
+  "dependencies": {
+    "zeebe-node-0.17a": "^2.0.0"
+  }
 }
