@@ -17,6 +17,7 @@
       <bpmn:extensionElements>
         <zeebe:ioMapping>
           <zeebe:input source="initial" target="taskname" />
+          <zeebe:input source="initial" target="paramB" />
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1bn9ltz</bpmn:incoming>

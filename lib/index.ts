@@ -9,7 +9,7 @@ export async function test(bpmnFile: string) {
 }
 
 async function deployWorkflow(bpmnFile: string) {
-  await zbc.deployWorkflow(bpmnFile, { redeploy: false });
+  await zbc.deployWorkflow(bpmnFile, { redeploy: true });
 
   // Parse the process id from the bpmn file
   const pid: string = (BpmnParser.parseBpmn(bpmnFile) as any)[0][
