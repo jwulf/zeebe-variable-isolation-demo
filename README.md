@@ -100,6 +100,8 @@ The return is similar. In a subprocess, all locally-scoped variables are lost at
 
 > But output mappings can be used to propagate local variables of the sub process to higher scopes. By default, all local variables are removed when the scope is left.
 
+## Using input mappings on subprocesses to isolate (create local) variables
+
 This test has an input mapping that I expect to create a local variable `taskname` in each subprocess:
 
 ![](./img/input-mapping.png)
