@@ -88,7 +88,7 @@ Note that the docs also state:
 
 > But if a variable or a nested property of a source expression doesn't exist then an incident is created.
 
-So you must declare and supply an initial value for a local variable.
+So you must declare _and supply_ (via a global variable) an initial value for a local variable.
 
 In programming terms, it is like declaring and initialising a global variable, and then passing it (by value) as an argument to a locally-scoped function.
 
@@ -102,7 +102,7 @@ The return is similar. In a subprocess, all locally-scoped variables are lost at
 
 ## Using input mappings on subprocesses to isolate (create local) variables
 
-This test has an input mapping that I expect to create a local variable `taskname` in each subprocess:
+This test uses `bpmn/test-scoped.bpmn`. It has an input mapping that will create a local variable `taskname` in each subprocess:
 
 ![](./img/input-mapping.png)
 
