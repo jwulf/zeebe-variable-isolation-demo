@@ -11,8 +11,7 @@
     </bpmn:parallelGateway>
     <bpmn:sequenceFlow id="SequenceFlow_1g0yjs0" sourceRef="StartEvent_1" targetRef="ExclusiveGateway_07p4nr4" />
     <bpmn:endEvent id="EndEvent_0wvx9g5" name="end">
-      <bpmn:incoming>SequenceFlow_0jqb17l</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_0z14jac</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1kppod7</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:subProcess id="TaskB_SubProcess">
       <bpmn:extensionElements>
@@ -76,8 +75,17 @@
       <bpmn:sequenceFlow id="SequenceFlow_0xzwjbo" sourceRef="StartEvent_0l29acj" targetRef="ServiceTask_0a6hhpp" />
     </bpmn:subProcess>
     <bpmn:sequenceFlow id="SequenceFlow_0ic2jz5" sourceRef="ExclusiveGateway_07p4nr4" targetRef="TaskA_SubProcess" />
-    <bpmn:sequenceFlow id="SequenceFlow_0jqb17l" sourceRef="TaskA_SubProcess" targetRef="EndEvent_0wvx9g5" />
-    <bpmn:sequenceFlow id="SequenceFlow_0z14jac" sourceRef="TaskB_SubProcess" targetRef="EndEvent_0wvx9g5" />
+    <bpmn:sequenceFlow id="SequenceFlow_0jqb17l" sourceRef="TaskA_SubProcess" targetRef="ServiceTask_1ju43p7" />
+    <bpmn:sequenceFlow id="SequenceFlow_0z14jac" sourceRef="TaskB_SubProcess" targetRef="ServiceTask_1ju43p7" />
+    <bpmn:serviceTask id="ServiceTask_1ju43p7" name="Output Payload">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="output" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0jqb17l</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0z14jac</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1kppod7</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1kppod7" sourceRef="ServiceTask_1ju43p7" targetRef="EndEvent_0wvx9g5" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="test-parallel-subprocesses">
@@ -101,9 +109,9 @@
         <di:waypoint x="378" y="173" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_0wvx9g5_di" bpmnElement="EndEvent_0wvx9g5">
-        <dc:Bounds x="360" y="567" width="36" height="36" />
+        <dc:Bounds x="337" y="734" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="369" y="610" width="19" height="14" />
+          <dc:Bounds x="346" y="777" width="19" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ServiceTask_0wywl5h_di" bpmnElement="ServiceTask_0wywl5h">
@@ -113,7 +121,7 @@
         <dc:Bounds x="465" y="460" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="SubProcess_0zbm3hy_di" bpmnElement="TaskB_SubProcess" isExpanded="true">
-        <dc:Bounds x="441" y="244" width="145" height="313" />
+        <dc:Bounds x="441" y="239" width="152" height="321" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0saexbu_di" bpmnElement="SequenceFlow_0saexbu">
         <di:waypoint x="515" y="420" />
@@ -121,8 +129,8 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1bn9ltz_di" bpmnElement="SequenceFlow_1bn9ltz">
         <di:waypoint x="403" y="198" />
-        <di:waypoint x="514" y="198" />
-        <di:waypoint x="514" y="244" />
+        <di:waypoint x="518" y="198" />
+        <di:waypoint x="518" y="239" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="SubProcess_059tyjb_di" bpmnElement="TaskA_SubProcess" isExpanded="true">
         <dc:Bounds x="156" y="246" width="159" height="311" />
@@ -139,12 +147,12 @@
       <bpmndi:BPMNEdge id="SequenceFlow_0jqb17l_di" bpmnElement="SequenceFlow_0jqb17l">
         <di:waypoint x="236" y="557" />
         <di:waypoint x="236" y="585" />
-        <di:waypoint x="360" y="585" />
+        <di:waypoint x="305" y="650" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0z14jac_di" bpmnElement="SequenceFlow_0z14jac">
-        <di:waypoint x="514" y="557" />
-        <di:waypoint x="514" y="585" />
-        <di:waypoint x="396" y="585" />
+        <di:waypoint x="518" y="560" />
+        <di:waypoint x="518" y="585" />
+        <di:waypoint x="405" y="651" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="StartEvent_0l29acj_di" bpmnElement="StartEvent_0l29acj">
         <dc:Bounds x="216" y="265" width="36" height="36" />
@@ -159,6 +167,13 @@
       <bpmndi:BPMNEdge id="SequenceFlow_09atbnj_di" bpmnElement="SequenceFlow_09atbnj">
         <di:waypoint x="515" y="295" />
         <di:waypoint x="515" y="340" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1ju43p7_di" bpmnElement="ServiceTask_1ju43p7">
+        <dc:Bounds x="305" y="613" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1kppod7_di" bpmnElement="SequenceFlow_1kppod7">
+        <di:waypoint x="355" y="693" />
+        <di:waypoint x="355" y="734" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
