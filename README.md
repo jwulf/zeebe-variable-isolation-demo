@@ -50,9 +50,13 @@ The same variables are visible in each of the parallel pathways because they are
 
 ## Using parallel subprocesses to isolate variables to local scope
 
+According to the [docs on Variable Scopes](https://docs.zeebe.io/reference/variables.html#variable-scopes):
+
+> When the workflow instance enters a sub process or an activity then a new scope is created. Activities in this scope can see all variables of this and of higher scopes (i.e. parent scopes). _But activities outside of this scope can not see the variables which are defined in this scopes._
+
 Putting the branches into parallel subprocesses, like this:
 
-![](./img/sub-process.png)
+![](./img/parallel-subprocesses.png)
 
 Does _not_ work.
 
@@ -66,18 +70,46 @@ The variables are still created in the global scope and visible in each branch:
 
 ![](./img/parallel-subprocesses-output.png)
 
-## Using a subprocess with parallel branches
+According to [the docs](https://docs.zeebe.io/reference/variables.html#variable-scopes):
 
-Now let's try putting the parallel branches in the same sub-process and see how that behaves:
+> The scope of a variable is defined when the variable is created. _By default, variables are created in the root scope._
 
-![](./img/subprocess-parallel.png)
+OK, so how do I create a locally-scoped variable?
 
-To run:
+Variables of local scope must be defined via an input parameter mapping in the sub-process.
+
+According to the docs:
+
+> When an input mapping is applied then it creates a new variable in the scope where the mapping is defined.
+
+This is the way to create a local variable. Explicitly map some input variable to a new variable.
+
+Note that the docs also state:
+
+> But if a variable or a nested property of a source expression doesn't exist then an incident is created.
+
+So you must declare and supply an initial value for a local variable.
+
+In programming terms, it is like declaring and initialising a global variable, and then passing it (by value) as an argument to a locally-scoped function.
+
+Within the function, the argument passed in is assigned to a mutable variable that is scoped to the function scope.
+
+A sub-process is like a scoped function. The input mappings is like the parameter list of the function signature.
+
+The return is similar. In a subprocess, all locally-scoped variables are lost at the end of the sub-process, unless they have an output mapping. Think of it as the return signature of the subprocess.
+
+> But output mappings can be used to propagate local variables of the sub process to higher scopes. By default, all local variables are removed when the scope is left.
+
+This test has an input mapping that I expect to create a local variable `taskname` in each subprocess:
+
+![](./img/input-mapping.png)
+
+Run it with:
 
 ```bash
-ts-node subprocess-parallel.ts
+ts-node scoped.ts
 ```
 
-The output is the same:
+However, the `taskname` variable is not local to the subprocess and isolated from other subprocesses:
 
-![](./img/subprocess-parallel-output.png)
+![](./img/scoped-output.png)

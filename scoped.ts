@@ -1,10 +1,12 @@
 import { BpmnParser, ZBClient } from "zeebe-node-0.17a";
 const zbc = new ZBClient("localhost:26500");
 
+test("./bpmn/test-scoped.bpmn");
+
 export async function test(bpmnFile: string) {
   const processId = await deployWorkflow(bpmnFile);
   if (createWorkers()) {
-    await zbc.createWorkflowInstance(processId, {});
+    await zbc.createWorkflowInstance(processId, { initial: "C" });
   }
 }
 
@@ -23,7 +25,10 @@ function createWorkers() {
     "test",
     "config-to-payload",
     (job, complete) => {
-      complete(job.customHeaders);
+      console.log(job.customHeaders);
+      complete({
+        taskname: job.customHeaders.taskA || job.customHeaders.taskB
+      });
     }
   );
 

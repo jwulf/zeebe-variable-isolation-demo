@@ -14,7 +14,12 @@
       <bpmn:incoming>SequenceFlow_0jqb17l</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_0z14jac</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:subProcess id="SubProcess_0zbm3hy">
+    <bpmn:subProcess id="TaskB_SubProcess">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="initial" target="taskname" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1bn9ltz</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0z14jac</bpmn:outgoing>
       <bpmn:serviceTask id="ServiceTask_036f7lr" name="Task B">
@@ -39,8 +44,13 @@
       </bpmn:startEvent>
       <bpmn:sequenceFlow id="SequenceFlow_09atbnj" sourceRef="StartEvent_1mg4yo0" targetRef="ServiceTask_036f7lr" />
     </bpmn:subProcess>
-    <bpmn:sequenceFlow id="SequenceFlow_1bn9ltz" sourceRef="ExclusiveGateway_07p4nr4" targetRef="SubProcess_0zbm3hy" />
-    <bpmn:subProcess id="SubProcess_059tyjb">
+    <bpmn:sequenceFlow id="SequenceFlow_1bn9ltz" sourceRef="ExclusiveGateway_07p4nr4" targetRef="TaskB_SubProcess" />
+    <bpmn:subProcess id="TaskA_SubProcess">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="initial" target="taskname" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0ic2jz5</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0jqb17l</bpmn:outgoing>
       <bpmn:serviceTask id="ServiceTask_0a6hhpp" name="Task A">
@@ -65,9 +75,9 @@
       </bpmn:startEvent>
       <bpmn:sequenceFlow id="SequenceFlow_0xzwjbo" sourceRef="StartEvent_0l29acj" targetRef="ServiceTask_0a6hhpp" />
     </bpmn:subProcess>
-    <bpmn:sequenceFlow id="SequenceFlow_0ic2jz5" sourceRef="ExclusiveGateway_07p4nr4" targetRef="SubProcess_059tyjb" />
-    <bpmn:sequenceFlow id="SequenceFlow_0jqb17l" sourceRef="SubProcess_059tyjb" targetRef="EndEvent_0wvx9g5" />
-    <bpmn:sequenceFlow id="SequenceFlow_0z14jac" sourceRef="SubProcess_0zbm3hy" targetRef="EndEvent_0wvx9g5" />
+    <bpmn:sequenceFlow id="SequenceFlow_0ic2jz5" sourceRef="ExclusiveGateway_07p4nr4" targetRef="TaskA_SubProcess" />
+    <bpmn:sequenceFlow id="SequenceFlow_0jqb17l" sourceRef="TaskA_SubProcess" targetRef="EndEvent_0wvx9g5" />
+    <bpmn:sequenceFlow id="SequenceFlow_0z14jac" sourceRef="TaskB_SubProcess" targetRef="EndEvent_0wvx9g5" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="test-parallel-subprocesses">
@@ -102,7 +112,7 @@
       <bpmndi:BPMNShape id="ServiceTask_01ejex4_di" bpmnElement="ServiceTask_01ejex4">
         <dc:Bounds x="465" y="460" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="SubProcess_0zbm3hy_di" bpmnElement="SubProcess_0zbm3hy" isExpanded="true">
+      <bpmndi:BPMNShape id="SubProcess_0zbm3hy_di" bpmnElement="TaskB_SubProcess" isExpanded="true">
         <dc:Bounds x="441" y="244" width="145" height="313" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0saexbu_di" bpmnElement="SequenceFlow_0saexbu">
@@ -114,7 +124,7 @@
         <di:waypoint x="514" y="198" />
         <di:waypoint x="514" y="244" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="SubProcess_059tyjb_di" bpmnElement="SubProcess_059tyjb" isExpanded="true">
+      <bpmndi:BPMNShape id="SubProcess_059tyjb_di" bpmnElement="TaskA_SubProcess" isExpanded="true">
         <dc:Bounds x="156" y="246" width="159" height="311" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_01d5zsd_di" bpmnElement="SequenceFlow_01d5zsd">
