@@ -17,7 +17,7 @@
     <bpmn:subProcess id="TaskB_SubProcess">
       <bpmn:extensionElements>
         <zeebe:ioMapping>
-          <zeebe:input source="initial" target="taskname" />
+          <zeebe:input source="initial" target="taskB" />
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1bn9ltz</bpmn:incoming>
@@ -48,7 +48,7 @@
     <bpmn:subProcess id="TaskA_SubProcess">
       <bpmn:extensionElements>
         <zeebe:ioMapping>
-          <zeebe:input source="initial" target="taskname" />
+          <zeebe:input source="initial" target="taskA" />
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0ic2jz5</bpmn:incoming>
